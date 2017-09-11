@@ -1,6 +1,9 @@
 import os 
 import image_loader
 
+def start_tensorflow():
+    os.popen("source ~/tensorflow/bin/activate\ncd ~/models/tutorials/image/imagenet")
+
 def build_tensorflow_commands():
     '''returns a tuple with the tensorflow commands required to process before and after images fetched from image_loader'''
     image_data = image_loader.get_next_images()
@@ -14,3 +17,15 @@ def run_tensorflow():
     output_after = os.popen(commands[1])
     print("before\n"+output_before)
     print("after\n"+output_after)
+    return output_before, output_after
+
+def parse_tensorflow_data(data):
+    before_confidence = float(tensorflow_data[0].split("= ")[1].split(")")[0])
+    after_confidence = float(tensorflow_data[1].split("= ")[1].split(")")[0])
+    return before_confidence, after_confidence
+
+def full_tensorflow_cycle():
+    build_tensorflow_commands()
+    data = run_tensorflow()
+    return parse_tensorflow_data(data)
+     
