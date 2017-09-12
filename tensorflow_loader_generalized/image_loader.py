@@ -4,7 +4,7 @@ from PIL import Image
 
 #IMAGES MUST BE IN '.png' FORMAT
 local_directory = "/home/kaveh/tensorflow_loader/images"
-supported_image_formats = [".png",".jpg",".jpeg"]
+supported_image_formats = [".png"]
 image_count = 0
 imagelist = ""
 
