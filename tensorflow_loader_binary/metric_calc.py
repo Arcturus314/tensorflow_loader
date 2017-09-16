@@ -37,6 +37,6 @@ def two_sample_z(mean_a, mean_b, stddev_a, stddev_b, conf_level):
 def run_all():
     quick_setup()
     proportion = process_images()
-    print 'Proportion identified correctly: ',proportion,' of ',image_loader.fetch_num_images(),' images'
+    print 'Proportion identified correctly: ',proportion,' with ',proportion*image_loader.fetch_num_images(),' of ',image_loader.fetch_num_images(),' images'
 
 run_all()
