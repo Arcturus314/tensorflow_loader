@@ -12,7 +12,7 @@ def process_images(): #returns mean and standard deviation of confidence for bot
     num_images = image_loader.fetch_num_images()
     num_correct = 0
     for i in xrange(num_images):
-        output = full_tensorflow_cycle()
+        output = tensorflow_parser.full_tensorflow_cycle()
         if output == True: num_correct += 1
     prop_correct = num_correct / num_images
     return prop_correct
