@@ -18,10 +18,10 @@ def process_images(): #returns mean and standard deviation of confidence for bot
     print 'Processing ',num_images, ' images'
     num_correct = 0
     for i in range(num_images):
-        print "Image ",i
+#        print "Image ",i
         output = tensorflow_parser.full_tensorflow_cycle()
         if output == True: num_correct += 1
-    prop_correct = num_correct / num_images
+    prop_correct = float(num_correct) / float(num_images)
     return prop_correct
 
 
@@ -34,5 +34,7 @@ def two_sample_z(mean_a, mean_b, stddev_a, stddev_b, conf_level):
         if norm.cdf(normalized_parameter) < conf_level/2: print("Mean of population b > mean of population a to within given confidence level")
         print("No conclusion can be found")
 
-#def run_all(conf_level):
-#    return prop_correct
+def run_all():
+    quick_setup()
+    proportion = process_images()
+    print 'Proportion identified correctly: ',proportion,' of ',image_loader.fetch_num_images(),' images'
