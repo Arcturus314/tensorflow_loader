@@ -11,13 +11,13 @@ def shell_source(script):
     os.environ.update(env)
 
 def start_tensorflow():
-    shell_source("/home/kaveh/tensorflow/bin/activate\ncd /home/kaveh/tensorflow/models/tutorials/image/imagenet")
-
+    shell_source("/home/kaveh/tensorflow/bin/activate")
+    os.popen("cd /home/kaveh/tensorflow/models/tutorials/image/imagenet")
 def build_tensorflow_command():
     '''returns a tuple with the tensorflow commands required to process before and after images fetched from image_loader'''
     image_data = image_loader.get_next_image()
     cat_present = image_data[2]
-    image_command= "python classify_image.py --image="+image_data[0]+" input_width="+str(image_data[2][0])+" input_height="+str(image_data[2][1])
+    image_command= "python /home/kaveh/tensorflow/models/tutorials/image/imagenet/classify_image.py --image="+image_data[0]+" --input_width="+str(image_data[2][0])+" --input_height="+str(image_data[2][1])
     return image_command
 
 def run_tensorflow():
