@@ -4,6 +4,11 @@ import numpy
 import math
 from scipy.stats import norm
 
+def quick_setup():
+    image_loader.reset_image_count()
+    image_loader.scan_image_filenames()
+    tensorflow_parser.start_tensorflow()
+
 def init_tensorflow(directory, url):
     image_loader.setup_imagelist(directory,url)
     tensorflow_parser.start_tensorflow()
@@ -27,5 +32,5 @@ def two_sample_z(mean_a, mean_b, stddev_a, stddev_b, conf_level):
         if norm.cdf(normalized_parameter) < conf_level/2: print("Mean of population b > mean of population a to within given confidence level")
         print("No conclusion can be found")
 
-def run_all(conf_level):
-    return prop_correct
+#def run_all(conf_level):
+#    return prop_correct
