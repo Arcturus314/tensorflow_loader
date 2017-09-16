@@ -26,6 +26,7 @@ def fetch_images_github(url):
     Repo.clone_from(url, local_directory) 
 
 def scan_image_filenames():
+    global imagelist
     '''scans local_directory for images, returns a sorted list of image filenames'''
     filelist = next(os.walk(local_directory))[2]
     imagelist = []
