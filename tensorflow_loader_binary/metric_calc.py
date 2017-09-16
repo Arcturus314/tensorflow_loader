@@ -5,8 +5,8 @@ import math
 from scipy.stats import norm
 
 def quick_setup():
-    image_loader.reset_image_count()
     image_loader.scan_image_filenames()
+    image_loader.reset_image_count()
     tensorflow_parser.start_tensorflow()
 
 def init_tensorflow(directory, url):

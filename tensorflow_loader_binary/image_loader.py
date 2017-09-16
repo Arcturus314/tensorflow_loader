@@ -49,6 +49,7 @@ def setup_imagelist(directory, url):
 def get_next_image():
     '''returns filename, has_cat, (width, height)'''
     global image_count
+    print("Processing image: ",image_count)
     image_filename = imagelist[image_count]
     im = Image.open(local_directory+"/"+image_filename)
     image_size = im.size
