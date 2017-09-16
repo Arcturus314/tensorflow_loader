@@ -32,7 +32,6 @@ def run_tensorflow():
 
 def parse_tensorflow_data(data):
     '''returns a boolean, describing whether "cat" is in tensorflow output and in image filename, or inverse of this'''
-    output = run_tensorflow()
 #    output_file = open(output, "r")
 #    output_lines = output.split("\n")
 #    valid_output_lines = []
@@ -40,9 +39,9 @@ def parse_tensorflow_data(data):
 #        if "=" in line:
 #            valid_output_lines.append(line)
 
-    if "cat," in output.read() and cat_present == True:
+    if "cat," in data.read() and cat_present == True:
         return True
-    if "cat" not in output.read() and cat_present == False:
+    if "cat" not in data.read() and cat_present == False:
         return True
     return False
 
