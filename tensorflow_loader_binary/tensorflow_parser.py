@@ -1,5 +1,6 @@
 import os 
 import image_loader
+import subprocess
 levels = 100
 cat_present = False
 
