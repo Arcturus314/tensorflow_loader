@@ -11,7 +11,7 @@ def shell_source(script):
     os.environ.update(env)
 
 def start_tensorflow():
-    shell_source("/home/kaveh/tensorflow/bin/activate\ncd home/kaveh/tensorflow/models/tutorials/image/imagenet")
+    shell_source("/home/kaveh/tensorflow/bin/activate\ncd /home/kaveh/tensorflow/models/tutorials/image/imagenet")
 
 def build_tensorflow_command():
     '''returns a tuple with the tensorflow commands required to process before and after images fetched from image_loader'''
