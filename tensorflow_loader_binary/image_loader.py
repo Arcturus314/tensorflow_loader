@@ -52,4 +52,4 @@ def get_next_image():
     image_filename = imagelist[image_count]
     im = Image.open(local_directory+"/"+image_filename)
     image_size = im.size
-    return image_filename, "cat" in image_filename, image_size
+    return local_directory+"/"+image_filename, "cat" in image_filename, image_size
