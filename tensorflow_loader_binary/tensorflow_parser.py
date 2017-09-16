@@ -47,7 +47,6 @@ def parse_tensorflow_data(data):
     return False
 
 def full_tensorflow_cycle():
-    build_tensorflow_command()
     data = run_tensorflow()
     return parse_tensorflow_data(data)
      
