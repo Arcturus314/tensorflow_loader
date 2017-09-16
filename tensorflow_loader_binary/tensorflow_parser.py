@@ -24,22 +24,24 @@ def run_tensorflow():
     '''Runs imagenet with command fetched from build_tensorflow_command, returns output'''
     command = build_tensorflow_command()
     output = os.popen(command)
-    print("output\n"+output)
+    output_file = open(output, "r")
+    for line in output_file:
+        print(line)
     return output
 
 def parse_tensorflow_data(data):
     '''returns a boolean, describing whether "cat" is in tensorflow output and in image filename, or inverse of this'''
     output = run_tensorflow()
-
+    output_file = open(output, "r")
 #    output_lines = output.split("\n")
 #    valid_output_lines = []
 #    for line in output_lines:
 #        if "=" in line:
 #            valid_output_lines.append(line)
 
-    if "cat," in output and cat_present == True:
+    if "cat," in output.read() and cat_present == True:
         return True
-    if "cat" not in output and cat_present == False:
+    if "cat" not in output.read() and cat_present == False:
         return True
     return False
 
