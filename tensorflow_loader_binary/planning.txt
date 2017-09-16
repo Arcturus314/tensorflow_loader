@@ -1,0 +1,10 @@
+The project can consist of four Python modules:
+	1) The first python module is responsible for obtaining images (From a local repository, a GitHub repository, imagenet, or a similar source). These images must be put into the project directory, and passed names in the format "[number]_before" or "[number]_after", where [number] is an identifier unique to an image pair. This module should also have a method that passes the maximum [number] obtained.
+	2) The second python module is responsible for feeding images into Tensorflow and collecting the output. The module should have a method to load an image pair into tensorflow, and collecting Tensorflow's output for both images. It will collect and parse outputs of tensorflow for both images, returning each output "item" as elements of a list, as well as tensorflow's "confidence". This data will be accessible via get methods for both images.
+	3) The third method contains a metric: it will process tensorflow's output for the two images, deciding which image created a "better" result. - confidence levels?
+
+Simplify problem- cats vs non-cats
+
+Tipy-cal metric- top 1%, top 5% metric- is the most confident output correct, or is the correct output in the top 5?
+
+Cat vs Not Cat- look in first 20 results
