@@ -24,15 +24,16 @@ def run_tensorflow():
     '''Runs imagenet with command fetched from build_tensorflow_command, returns output'''
     command = build_tensorflow_command()
     output = os.popen(command)
-    output_file = open(output, "r")
-    for line in output_file:
+#    output_file = open(output, "r")
+    print("Output follows:")
+    for line in output:
         print(line)
     return output
 
 def parse_tensorflow_data(data):
     '''returns a boolean, describing whether "cat" is in tensorflow output and in image filename, or inverse of this'''
     output = run_tensorflow()
-    output_file = open(output, "r")
+#    output_file = open(output, "r")
 #    output_lines = output.split("\n")
 #    valid_output_lines = []
 #    for line in output_lines:
