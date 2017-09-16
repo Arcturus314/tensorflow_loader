@@ -38,3 +38,5 @@ def run_all():
     quick_setup()
     proportion = process_images()
     print 'Proportion identified correctly: ',proportion,' of ',image_loader.fetch_num_images(),' images'
+
+run_all()
