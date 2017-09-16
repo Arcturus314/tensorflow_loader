@@ -8,6 +8,7 @@ def quick_setup():
     image_loader.scan_image_filenames()
     image_loader.reset_image_count()
     tensorflow_parser.start_tensorflow()
+    print('Processing ',image_loader.fetch_num_images(), ' images')
 
 def init_tensorflow(directory, url):
     image_loader.setup_imagelist(directory,url)
