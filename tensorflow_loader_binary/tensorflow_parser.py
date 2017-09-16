@@ -3,8 +3,14 @@ import image_loader
 levels = 100
 cat_present = False
 
+def shell_source(script):
+    pipe = subprocess.Popen(". %s; env" % script, stdout=subprocess.PIPE, shell=True)
+    output = pipe.communicate()[0]
+    env = dict((line.split("=", 1) for line in output.splitlines()))
+    os.environ.update(env)
+
 def start_tensorflow():
-    os.popen("source ~/tensorflow/bin/activate\ncd ~/models/tutorials/image/imagenet")
+    shell_source("/home/kaveh/tensorflow/bin/activate\ncd home/kaveh/tensorflow/models/tutorials/image/imagenet")
 
 def build_tensorflow_command():
     '''returns a tuple with the tensorflow commands required to process before and after images fetched from image_loader'''

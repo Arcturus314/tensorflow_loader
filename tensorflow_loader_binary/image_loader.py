@@ -1,4 +1,5 @@
 import os
+import shutil
 from git import Repo
 from PIL import Image
 
@@ -22,7 +23,8 @@ def set_directory(directory):
     local_directory = directory
 
 def fetch_images_github(url):
-    '''downloads an image dataset from a GitHub repository to local_directory'''
+    '''downloads an image dataset from a GitHub repository to local_directory, deleting the contents of the local directory if not already empty'''
+    shutil.rmtree(local_directory)
     Repo.clone_from(url, local_directory) 
 
 def scan_image_filenames():
