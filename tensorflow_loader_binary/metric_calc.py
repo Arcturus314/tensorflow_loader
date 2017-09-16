@@ -8,7 +8,6 @@ def quick_setup():
     image_loader.scan_image_filenames()
     image_loader.reset_image_count()
     tensorflow_parser.start_tensorflow()
-    print('Processing ',image_loader.fetch_num_images(), ' images')
 
 def init_tensorflow(directory, url):
     image_loader.setup_imagelist(directory,url)
@@ -16,6 +15,7 @@ def init_tensorflow(directory, url):
 
 def process_images(): #returns mean and standard deviation of confidence for both sets
     num_images = image_loader.fetch_num_images()
+    print 'Processing ',num_images, ' images'
     num_correct = 0
     for i in xrange(num_images):
         output = tensorflow_parser.full_tensorflow_cycle()
