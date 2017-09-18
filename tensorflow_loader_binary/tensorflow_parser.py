@@ -15,8 +15,9 @@ def start_tensorflow():
     os.popen("cd /home/kaveh/tensorflow/models/tutorials/image/imagenet")
 def build_tensorflow_command():
     '''returns a tuple with the tensorflow commands required to process before and after images fetched from image_loader'''
+    global cat_present
     image_data = image_loader.get_next_image()
-    cat_present = image_data[2]
+    cat_present = image_data[1]
     image_command= "python /home/kaveh/tensorflow/models/tutorials/image/imagenet/classify_image.py --image="+image_data[0]+" --input_width="+str(image_data[2][0])+" --input_height="+str(image_data[2][1])
     return image_command
 
@@ -24,10 +25,10 @@ def run_tensorflow():
     '''Runs imagenet with command fetched from build_tensorflow_command, returns output'''
     command = build_tensorflow_command()
     output = os.popen(command)
-#    output_file = open(output, "r")
-    print("Output follows:")
-    for line in output:
+    output_print = output
+    for line in output_print:
         print(line)
+#    output_file = open(output, "r")
     return output
 
 def parse_tensorflow_data(data):
