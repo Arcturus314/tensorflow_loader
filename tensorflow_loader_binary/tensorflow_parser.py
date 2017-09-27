@@ -23,13 +23,16 @@ def build_tensorflow_command():
 
 def run_tensorflow():
     '''Runs imagenet with command fetched from build_tensorflow_command, returns output'''
+    #global output_print
     command = build_tensorflow_command()
     output = os.popen(command)
-    output_print = output
-    for line in output_print:
-        print(line)
-#    output_file = open(output, "r")
-    return output
+    output_string = output.read()
+    output_string = output_string.replace('\n', ' ').replace('\r', '')
+    print output_string
+    #output_print = output
+    #for line in output_print:
+    #    print(line)
+    return output_string
 
 def parse_tensorflow_data(data):
     '''returns a boolean, describing whether "cat" is in tensorflow output and in image filename, or inverse of this'''
@@ -40,10 +43,12 @@ def parse_tensorflow_data(data):
 #        if "=" in line:
 #            valid_output_lines.append(line)
 
-    if "cat," in data.read() and cat_present == True:
+    if "cat" in data and cat_present == True:
         return True
-    if "cat" not in data.read() and cat_present == False:
+    if "cat" not in data and cat_present == False:
         return True
+    #for line in output_print:
+    #    print line
     return False
 
 def full_tensorflow_cycle():

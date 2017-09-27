@@ -18,9 +18,11 @@ def process_images(): #returns mean and standard deviation of confidence for bot
     print 'Processing ',num_images, ' images'
     num_correct = 0
     for i in range(num_images):
-#        print "Image ",i
         output = tensorflow_parser.full_tensorflow_cycle()
-        if output == True: num_correct += 1
+        if output == True:
+		num_correct += 1
+		print("Inceptionv3 matches label, current num correct:", num_correct)
+	else: print("Inceptionv3 does not match label")
     prop_correct = float(num_correct) / float(num_images)
     return prop_correct
 
