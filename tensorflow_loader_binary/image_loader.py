@@ -1,11 +1,9 @@
 import os
 import shutil
-from git import Repo
 from PIL import Image
 
-#IMAGES MUST BE IN '.png' FORMAT
-local_directory = "/home/kaveh/tensorflow_loader/images"
-supported_image_formats = [".png", ".jpeg"]
+local_directory = "/"
+supported_image_formats = [".png", ".jpeg",".JPG"]
 imagelist = []
 image_count = 0
 
@@ -22,11 +20,6 @@ def set_directory(directory):
     global local_directory
     local_directory = directory
 
-def fetch_images_github(url):
-    '''downloads an image dataset from a GitHub repository to local_directory, deleting the contents of the local directory if not already empty'''
-    shutil.rmtree(local_directory)
-    Repo.clone_from(url, local_directory) 
-
 def scan_image_filenames():
     global imagelist
     '''scans local_directory for images, returns a sorted list of image filenames'''
@@ -35,14 +28,12 @@ def scan_image_filenames():
     for element in filelist:
         for postfix in supported_image_formats:
             if postfix in element: imagelist.append(element)
-    #return imagelist_sort(imagelist)
     return imagelist
 
-def setup_imagelist(directory, url):
+def setup_imagelist(directory):
     '''downloads an image set from a specific url to a specific variable, and sets up internal variables for image processing'''
     global imagelist
     set_directory(directory)
-    fetch_images_github(url)
     reset_image_count()
     imagelist = scan_image_filenames()
 

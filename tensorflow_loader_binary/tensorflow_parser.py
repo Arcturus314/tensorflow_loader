@@ -10,43 +10,37 @@ def shell_source(script):
     env = dict((line.split("=", 1) for line in output.splitlines()))
     os.environ.update(env)
 
-def start_tensorflow():
-    shell_source("/home/kaveh/tensorflow/bin/activate")
-    os.popen("cd /home/kaveh/tensorflow/models/tutorials/image/imagenet")
+def start_tensorflow(tensorflow_directory):
+    shell_source(tensorflow_directory+"/bin/activate")
+    os.popen("cd " + tensorflow_directory + "/models/tutorials/image/imagenet")
+
 def build_tensorflow_command():
     '''returns a tuple with the tensorflow commands required to process before and after images fetched from image_loader'''
-    global cat_present
     image_data = image_loader.get_next_image()
+    image_filename = image_data[0]
     cat_present = image_data[1]
-    image_command= "python /home/kaveh/tensorflow/models/tutorials/image/imagenet/classify_image.py --image="+image_data[0]+" --input_width="+str(image_data[2][0])+" --input_height="+str(image_data[2][1])
-    return image_command
+    image_command= "python " + tensorflow_directory + "/models/tutorials/image/imagenet/classify_image.py --image="+image_filename+" --input_width="+str(image_data[2][0])+" --input_height="+str(image_data[2][1])
+    return image_command,image_filename
 
 def run_tensorflow():
     '''Runs imagenet with command fetched from build_tensorflow_command, returns output'''
     command = build_tensorflow_command()
-    output = os.popen(command)
-    output_print = output
-    for line in output_print:
-        print(line)
-#    output_file = open(output, "r")
-    return output
+    output = os.popen(command[0])
+    output_string = output.read()
+    output_string = output_string.replace('\n', ' ').replace('\r', '')
+    return output_string, command[1]
 
 def parse_tensorflow_data(data):
     '''returns a boolean, describing whether "cat" is in tensorflow output and in image filename, or inverse of this'''
-#    output_file = open(output, "r")
-#    output_lines = output.split("\n")
-#    valid_output_lines = []
-#    for line in output_lines:
-#        if "=" in line:
-#            valid_output_lines.append(line)
 
-    if "cat," in data.read() and cat_present == True:
+    if "cat," in data and cat_present == True:
         return True
-    if "cat" not in data.read() and cat_present == False:
+    if "cat" not in data and cat_present == False:
         return True
     return False
 
 def full_tensorflow_cycle():
+    #returns a boolean indicating whether inception provided the correct label, the inception output, and the image filename
     data = run_tensorflow()
-    return parse_tensorflow_data(data)
+    return parse_tensorflow_data(data[0]),data[0],data[1]
      
