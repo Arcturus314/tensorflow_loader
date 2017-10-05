@@ -2,14 +2,8 @@ import os
 import shutil
 from PIL import Image
 
-<<<<<<< HEAD
 local_directory = "/"
 supported_image_formats = [".png", ".jpeg",".JPG"]
-=======
-#IMAGES MUST BE IN '.png' FORMAT
-local_directory = "/home/kaveh/tensorflow_loader/images"
-supported_image_formats = [".png", ".jpeg", ".JPG"]
->>>>>>> d5fd5b4e5b6941572e738eac25a3a5b080fb56ee
 imagelist = []
 image_count = 0
 

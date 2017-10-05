@@ -48,16 +48,9 @@ def process_images():
     num_correct = 0
     for i in range(num_images):
         output = tensorflow_parser.full_tensorflow_cycle()
-<<<<<<< HEAD
         if output[0] == True: num_correct += 1
         if show_failed_filenames == True: print output[2]
         if show_failed_labels == True: print output[1]
-=======
-        if output == True:
-		num_correct += 1
-		print("Inceptionv3 matches label, current num correct:", num_correct)
-	else: print("Inceptionv3 does not match label")
->>>>>>> d5fd5b4e5b6941572e738eac25a3a5b080fb56ee
     prop_correct = float(num_correct) / float(num_images)
     return prop_correct
 
