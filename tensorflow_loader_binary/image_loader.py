@@ -3,7 +3,7 @@ import shutil
 from PIL import Image
 
 local_directory = "/"
-supported_image_formats = [".png", ".jpeg",".JPG"]
+supported_image_formats = [".png", ".jpeg",".jpg"]
 imagelist = []
 image_count = 0
 
