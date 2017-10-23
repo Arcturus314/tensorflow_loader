@@ -1,5 +1,6 @@
 IMAGE_DIRECTORY_1=/home/kaveh/tensorflow_loader/images;
 IMAGE_DIRECTORY_2=/home/kaveh/tensorflow_loader/other_imgs;
 TENSORFLOW_DIRECTORY=/home/kaveh/tensorflow;
+OUTPUT_FILENAME=output.txt;
 SHOW_FAILED_FILENAMES=Y;
 SHOW_FAILED_LABELS=Y;

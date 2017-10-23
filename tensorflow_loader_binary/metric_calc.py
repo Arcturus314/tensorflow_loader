@@ -8,29 +8,37 @@ try:
     config_file = open("config.txt","r")
     config_file_text = config_file.read()
     config_lines = config_file_text.split(";")
-    set1_dir = config_lines[0].split("=")[1]
-    set2_dir = config_lines[1].split("=")[1]
-    tensorflow_directory = config_lines[2].split("=")[1]
-    two_directory_read = False
-    if set2_dir != "": two_directory_read = True
+
+    #mapping directories
+    i = 0
+    directories = [] #stores directory paths
+    while "IMAGE_DIRECTORY" in config_lines[i]:
+        directories.append(config_lines[i].split("=")[1])
+        i += 1
+    tensorflow_directory = config_lines[i].split("=")[1]
+    output_filename = config_lines[i+1].split("=")[1]
     show_failed_filenames=False
-    if config_lines[3].split("=")[1] == "Y": show_failed_filenames = True
+    if config_lines[i+2].split("=")[1] == "Y": show_failed_filenames = True
     show_failed_labels=False
-    if config_lines[4].split("=")[1] == "Y": show_failed_labels = True
+    if config_lines[i+3].split("=")[1] == "Y": show_failed_labels = True
 except:
     print "Please create or format config.txt"
     quit()
 
 #printing settings
 print "starting tensorflow with the following settings:"
-print "directory 1:", set1_dir
-if two_directory_read == True: print "directory 2:", set2_dir
-print "tensorflow directory",tensorflow_directory
-print "showing failed image filenames:", show_failed_filenames
-print "showing failed image labels:", show_failed_labels
+for i in range(len(directories)):
+    print "directory",i,":",directories[i]
+print "output filename :",output_filename
+print "tensorflow directory :",tensorflow_directory
+print "showing failed image filenames :", show_failed_filenames
+print "showing failed image labels :", show_failed_labels
 
 filename_list = []
 label_list = []
+
+#opening file
+output_file = open(output_filename, "w")
 
 def init_tensorflow(directory):
     #Sets required variables and starts processing
@@ -62,12 +70,14 @@ def run_all(directory):
     output_list = process_images()
     proportion = output_list[0]
     print 'Proportion identified correctly: ',proportion,' with ',proportion*image_loader.fetch_num_images(),' of ',image_loader.fetch_num_images(),' images'
-    if (show_failed_filenames or show_failed_labels): print "Failed Images:"
+    if (show_failed_filenames or show_failed_labels): 
+        print "Failed Images, Directory:", directory
+        file.write("Failed Images, Directory:", directory)
     for element in output_list[1]:
         print element
+        file.write(element)
 
-print "-----PROCESSING IMAGES FROM DIRECTORY 1-----"
-run_all(set1_dir)
-if two_directory_read == True:
-    print "-----PROCESSING IMAGES FROM DIRECTORY 2-----"
-    run_all(set2_dir)
+
+for i in range(len(directories)):
+    print "----- PROCESSING IMAGES FROM DIRECTORY",i,"-----"
+    run_all(directories[i])
