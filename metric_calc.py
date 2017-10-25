@@ -76,6 +76,7 @@ def run_all(directory):
     for element in output_list[1]:
         print element
         output_file.write(element)
+        output_file.write("\n")
 
 
 for i in range(len(directories)):
