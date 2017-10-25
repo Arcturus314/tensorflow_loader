@@ -69,7 +69,9 @@ def run_all(directory):
     init_tensorflow(directory)
     output_list = process_images()
     proportion = output_list[0]
-    print 'Proportion identified correctly: ',proportion,' with ',proportion*image_loader.fetch_num_images(),' of ',image_loader.fetch_num_images(),' images'
+    proportion_print = 'Proportion identified correctly: ',proportion,' with ',proportion*image_loader.fetch_num_images(),' of ',image_loader.fetch_num_images(),' images'
+    print proportion_print
+    output_file.write("------"+proportion_print)
     if (show_failed_filenames or show_failed_labels): 
         print "Failed Images, Directory:", directory
         output_file.write("Failed Images, Directory:"+directory+"\n")
