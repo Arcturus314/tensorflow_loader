@@ -19,6 +19,7 @@ def start_tensorflow(tensorflow_directory):
 
 def build_tensorflow_command():
     '''returns a tuple with the tensorflow commands required to process before and after images fetched from image_loader'''
+    global cat_present
     image_data = image_loader.get_next_image()
     image_filename = image_data[0]
     cat_present = image_data[1]
@@ -35,11 +36,17 @@ def run_tensorflow():
 
 def parse_tensorflow_data(data):
     '''returns a boolean, describing whether "cat" is in tensorflow output and in image filename, or inverse of this'''
+    print "data: ",data
+    print "cat in filename: ",cat_present
+    print "cat in data: ",("cat" in data)
 
-    if "cat," in data and cat_present == True:
+    if "cat" in data and cat_present == True:
+        print "---CAT IN DATA AND FILENAME"
         return True
     if "cat" not in data and cat_present == False:
+        print "---CAT NOT IN DATA OR FILENAME"
         return True
+    print "---RETURNING FALSE"
     return False
 
 def full_tensorflow_cycle():

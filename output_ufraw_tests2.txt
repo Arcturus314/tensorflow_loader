@@ -1,0 +1,15 @@
+------Proportion identified correctly: 0.95625 with 153.0 of 160 imagesFailed Images, Directory:/home/kaveh/cw/images/images/ufraw_param/optimized
+/home/kaveh/cw/images/images/ufraw_param/optimized/cat__42_.png
+lionfish (score = 0.12108) Egyptian cat (score = 0.11911) conch (score = 0.10099) jellyfish (score = 0.09161) stage (score = 0.04050) 
+/home/kaveh/cw/images/images/ufraw_param/optimized/cat__14_.png
+tabby, tabby cat (score = 0.28990) Egyptian cat (score = 0.12643) tiger cat (score = 0.11621) window screen (score = 0.08363) Siamese cat, Siamese (score = 0.06247) 
+/home/kaveh/cw/images/images/ufraw_param/optimized/cat__20_.png
+Egyptian cat (score = 0.88886) tiger cat (score = 0.02294) lynx, catamount (score = 0.01873) tabby, tabby cat (score = 0.01865) snow leopard, ounce, Panthera uncia (score = 0.00234) 
+/home/kaveh/cw/images/images/ufraw_param/optimized/cat__41_.png
+jellyfish (score = 0.23458) Egyptian cat (score = 0.19708) tabby, tabby cat (score = 0.05077) lionfish (score = 0.04747) chambered nautilus, pearly nautilus, nautilus (score = 0.03348) 
+/home/kaveh/cw/images/images/ufraw_param/optimized/IMG_3403.png
+jellyfish (score = 0.29198) scuba diver (score = 0.08047) shower curtain (score = 0.04157) oscilloscope, scope, cathode-ray oscilloscope, CRO (score = 0.02724) fountain (score = 0.02158) 
+/home/kaveh/cw/images/images/ufraw_param/optimized/cat__40_.png
+Egyptian cat (score = 0.47006) tabby, tabby cat (score = 0.13330) jellyfish (score = 0.03486) tiger cat (score = 0.02666) stage (score = 0.01658) 
+/home/kaveh/cw/images/images/ufraw_param/optimized/IMG_3524.png
+Egyptian cat (score = 0.18685) Chihuahua (score = 0.10166) Italian greyhound (score = 0.03678) window screen (score = 0.03069) Siamese cat, Siamese (score = 0.02870) 

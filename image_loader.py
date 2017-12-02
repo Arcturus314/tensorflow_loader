@@ -3,7 +3,7 @@ import shutil
 from PIL import Image
 
 local_directory = "/"
-supported_image_formats = [".png", ".jpeg",".jpg"]
+supported_image_formats = [".png", ".jpeg",".jpg",".JPG"]
 imagelist = []
 image_count = 0
 
@@ -42,7 +42,7 @@ def get_next_image():
     global image_count
     image_filename = imagelist[image_count]
     im = Image.open(local_directory+"/"+image_filename)
-    print 'Processing image number: ',image_count,' filename: ',image_filename
+    print 'Processing image number: ',image_count,' filename: ',image_filename, "cat" in image_filename
     image_size = im.size
     image_count += 1
     return local_directory+"/"+image_filename, "cat" in image_filename, image_size
