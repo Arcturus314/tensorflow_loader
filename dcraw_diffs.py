@@ -47,10 +47,17 @@ if len(dcraw_dp) != len(dcraw_v.c) or len(dcraw_dp) != len(dcraw_execs):
     sys.exit("cdraw dp and v file mismatch. Please check configuration")
 
 for i in range(len(dcraw_dp)):
+    #compiling
     comp_output = ""
     shell_source(directory)
     comp_output = os.popen(dcraw_comp[0] + dcraw_execs[i] + dcraw_comp[1] + dcraw_dp[i] + " " + dcraw_v[i] + dcraw_comp[2])
     print("GCC Compilation Output for " + dcraw_dp[i] + " and " + dcraw_v[i] + "\n" + comp_output)
+    #testing compilation
+    if dcraw_execs[i] not in os.listdir(directory):
+        print("----COMPILATION FAILED: EXEC DOES NOT EXIST----")
+        dcraw_execs.remove(dcraw_execs[i])
+    else:
+        print("----COMPILATION SUCCESSFUL----")
 
 #testing DCraw versions on provided image sets
 for exec_ver in dcraw_execs:
@@ -62,8 +69,53 @@ for exec_ver in dcraw_execs:
         print("Output image filename: " + output_filename)
         output = os.popen("./"+exec_ver+dcraw_args+" "+image)
         print(output)
-        #image renaming
-        os.popen("mv " + image[0:-3]+".ppm " + output_filename)
-        os.popen("rm " + image[0:-3]+".ppm")
+        #testing conversion
+        if image[0:-3]+".ppm" not in os.listdir(directory):
+            print("----IMAGE CONVERSION FAILED: .PPM NOT IN DIRECTORY----")
+            output_image_filenames.remove(output_filename)
+        else:
+            print("----IMAGE CONVERSION SUCCESSFUL----")
+            #image renaming
+            os.popen("mv " + image[0:-3]+".ppm " + output_filename)
+            os.popen("rm " + image[0:-3]+".ppm")
 
 #comparing images between DCraw versions
+
+for i in range(len(image_filenames)):
+    #stores the filenames of the images that will be compared
+    image_comp_names = []
+    #stores the image comparison matrix
+    image_comp_diffs = []
+
+    #fetching image filenames
+    for j in range(len(dcraw_execs)):
+        image_comp.append(output_image_filenames[i+j*4])
+    #the first row of the matrix is a header with filenames
+    image_comp_diffs += image_comp_names
+
+    #testing differences between files
+    for img1 in image_comp:
+        #differences for one row of the matrix: ex image 0 vs image 0, image 1, image 2, ...
+        img1_diffs = []
+        #cycling through images again
+        for img2 in image_comp:
+            #we don't need to run a test of an image against itself
+            if img1 == img2:
+                img1_diffs += "X" #we use an 'X' when a test is not necessary
+            else:
+                diff = os.popen("diff "+img1+" "+img2) #testing differences
+                if "differ" in diff:
+                    img1_diffs += "F"  #we use 'F' if the images differ
+                else:
+                    img1_diffs += "T"  #we use 'T' if the image are the same
+
+        image_comp_diffs += img1_diffs #once all the comparisons for a specific image version are complete we append the results array to the comparison matrix
+
+    comparisons += image_comp_diffs #once all the comparisons for a specific image are complete we append the comparison matrix the the complete comparison 3D matrix
+
+#printing images
+
+for image in comparisons:
+    print("Results for image: " + image_filenames[comparisons.index(image)])
+    for row in image:
+        print(row)
