@@ -1,4 +1,4 @@
-import os 
+import os
 import image_loader
 import subprocess
 levels = 100
@@ -6,6 +6,7 @@ cat_present = False
 directory = ''
 
 def shell_source(script):
+    print(script)
     pipe = subprocess.Popen(". %s; env" % script, stdout=subprocess.PIPE, shell=True)
     output = pipe.communicate()[0]
     env = dict((line.split("=", 1) for line in output.splitlines()))

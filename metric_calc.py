@@ -1,6 +1,6 @@
 import tensorflow_parser
 import image_loader
-import numpy
+#import numpy
 import math
 
 #Reading settings from file
@@ -72,7 +72,7 @@ def run_all(directory):
     proportion_print = 'Proportion identified correctly: '+str(proportion)+' with '+str(proportion*image_loader.fetch_num_images())+' of '+str(image_loader.fetch_num_images())+' images'
     print proportion_print
     output_file.write("------"+proportion_print)
-    if (show_failed_filenames or show_failed_labels): 
+    if (show_failed_filenames or show_failed_labels):
         print "Failed Images, Directory:", directory
         output_file.write("Failed Images, Directory:"+directory+"\n")
     for element in output_list[1]:
