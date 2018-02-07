@@ -8,6 +8,7 @@
 #imports necessary for command-line interaction
 import os
 import subprocess
+import file_byte_comp
 from sys import exit
 
 
@@ -32,6 +33,12 @@ dcraw_v  = ["dcraw2_v.c" , "dcraw2_v.c" ]
 
 #names of output dcraw executables
 dcraw_execs = ["dcraw1", "dcraw2"]
+
+#checking image similarity within max_lsb_diff (as a power of 2)
+#WARNING: this is really inefficient and takes ages
+check_lsb = True
+max_lsb_diff = 1
+
 
 #-----------END OF USER SETTINGS----------------------
 output_image_filenames = []
@@ -107,7 +114,6 @@ for i in range(len(image_filenames)):
         image_comp_names.append(output_image_filenames[i+j*len(image_filenames)])
     #the first row of the matrix is a header with filenames
     image_comp_diffs.append(image_comp_names)
-    print("image comp diffs 1: " + str(image_comp_diffs))
 
     #testing differences between files
     for img1 in image_comp_names:
@@ -117,19 +123,24 @@ for i in range(len(image_filenames)):
         for img2 in image_comp_names:
             print("Comparing images: " + img1 + " " + img2)
             #we don't need to run a test of an image against itself
-            if img1 == img2:
+            if img1 == img2 or image_comp_names.index(img2) < image_comp_names.index(img1):
                 img1_diffs.append("X") #we use an 'X' when a test is not necessary
             else:
-                diff = os.popen("diff -q "+img1+" "+img2) #testing differences
-                diff_read = diff.read()
-                #print("Output: " + diff_read)
-                if "differ" in diff_read:
-                    img1_diffs.append("F")  #we use 'F' if the images differ
+                if not check_lsb:
+                    diff = os.popen("diff -q "+img1+" "+img2) #testing differences
+                    diff_read = diff.read()
+                    #print("Output: " + diff_read)
+                    if "differ" in diff_read:
+                        img1_diffs.append("F")  #we use 'F' if the images differ
+                    else:
+                        img1_diffs.append("T")  #we use 'T' if the image are the same
                 else:
-                    img1_diffs.append("T")  #we use 'T' if the image are the same
-        print("img1 diffs: " + str(img1_diffs))
+                    raw_diff = file_byte_comp.compare_files(img1, img2, max_lsb_diff)
+                    if raw_diff[0] == True:
+                        img1_diffs.append("T,"+str(raw_diff[1])[0:3])
+                    else:
+                        img1_diffs.append("F,"+str(raw_diff[1])[0:3])
         image_comp_diffs.append(img1_diffs) #once all the comparisons for a specific image version are complete we append the results array to the comparison matrix
-        print("image comp diffs 2: " + str(image_comp_diffs))
 
     comparisons.append(image_comp_diffs) #once all the comparisons for a specific image are complete we append the comparison matrix the the complete comparison 3D matrix
 
@@ -140,6 +151,7 @@ print("")
 print("----IMAGE COMPARISON RESULTS----")
 print("X corresponds to identical filenames, T to identical images, F to different images")
 print("X and Y column / row headings are identical. Y headings not shown.")
+print("If checking similarity, output is of the form X/T/F , average lsb difference between all cases where a difference exists")
 
 for image in comparisons:
     print("\nResults for image: " + image_filenames[comparisons.index(image)])
