@@ -144,12 +144,10 @@ for i in range(len(image_filenames)):
 
     comparisons.append(image_comp_diffs) #once all the comparisons for a specific image are complete we append the comparison matrix the the complete comparison 3D matrix
 
-print("comparisons: " + str(comparisons))
-
 #printing images
 print("")
 print("----IMAGE COMPARISON RESULTS----")
-print("X corresponds to identical filenames, T to identical images, F to different images")
+print("X corresponds to identical filenames or a symmetric test, T to identical images, F to different images")
 print("X and Y column / row headings are identical. Y headings not shown.")
 print("If checking similarity, output is of the form X/T/F , average lsb difference between all cases where a difference exists")
 
